@@ -40,6 +40,6 @@ namespace BandTracker
   }
   public static class DBConfiguration
   {
-      public static string ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=BandTracker;Integrated Security=SSPI;";
+      public static string ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=Band_Tracker;Integrated Security=SSPI;";
   }
 }
