@@ -49,6 +49,17 @@ namespace BandTracker.Objects
   Assert.Equal(newVenue, allVenues[0]);
   }
 
+  [Fact]
+    public void Test4_FindId()
+    {
+      Venue newVenue = new Venue ("Largo");
+      newVenue.Save();
+
+      Venue findVenue = Venue.Find(newVenue.GetId());
+
+      Assert.Equal(findVenue, newVenue);
+    }
+
 
 
 
