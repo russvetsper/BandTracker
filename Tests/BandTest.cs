@@ -5,7 +5,7 @@ using System;
 
 namespace BandTracker.Objects
 {
-  public class BandTest
+  public class BandTest : IDisposable
   {
 
     public BandTest()
@@ -73,6 +73,31 @@ namespace BandTracker.Objects
 
       Assert.Equal("Metallica", result);
     }
+
+    [Fact]
+    public void Test7_DeleteOneBand()
+    {
+
+      Band firstBand = new Band("TLC");
+      firstBand.Save();
+
+      Band secondBand = new Band("U2");
+      secondBand.Save();
+
+      firstBand.Delete();
+      List<Band> allBands = Band.GetAll();
+      List<Band> afterDeleteFristBand = new List<Band> {secondBand};
+
+      Assert.Equal(afterDeleteFristBand, allBands);
+
+    }
+
+    public void Dispose()
+  {
+    Band.DeleteAll();
+  }
+
+
 
 
 

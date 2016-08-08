@@ -170,6 +170,37 @@ namespace BandTracker.Objects
     }
   }
 
+  public void Delete()
+  {
+    SqlConnection conn = DB.Connection();
+    conn.Open();
+    SqlCommand cmd = new SqlCommand ("DELETE FROM bands WHERE id =@bandId;", conn);
+
+    SqlParameter bandIdParameter = new SqlParameter();
+    bandIdParameter.ParameterName = "@bandId";
+    bandIdParameter.Value=this.GetId();
+    cmd.Parameters.Add(bandIdParameter);
+    cmd.ExecuteNonQuery();
+    if (conn !=null)
+    {
+      conn.Close();
+    }
+  }
+
+  public static void DeleteAll()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand ("DELETE FROM bands;", conn);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+    }
+
+  
+
+
+
+
 
 
   }
