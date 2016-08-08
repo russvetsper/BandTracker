@@ -135,6 +135,42 @@ namespace BandTracker.Objects
 
   }
 
+  public void Update(string Name)
+  {
+    SqlConnection conn = DB.Connection();
+    conn.Open();
+
+    SqlCommand cmd = new SqlCommand("UPDATE bands SET name =@bandName output inserted.name WHERE id =@bandId;", conn);
+    SqlParameter BandNameParameter = new SqlParameter();
+    BandNameParameter.ParameterName = "@bandName";
+    BandNameParameter.Value = Name;
+    SqlParameter BandIdParameter = new SqlParameter();
+    BandIdParameter.ParameterName = "@bandId";
+    BandIdParameter.Value = _id;
+
+
+    cmd.Parameters.Add(BandNameParameter);
+    cmd.Parameters.Add(BandIdParameter);
+
+    SqlDataReader rdr = cmd.ExecuteReader();
+
+    while(rdr.Read())
+    {
+      this._name = rdr.GetString(0);
+    }
+
+    if (rdr != null)
+    {
+      rdr.Close();
+    }
+
+    if (rdr != null)
+    {
+      conn.Close();
+    }
+  }
+
+
 
   }
 }

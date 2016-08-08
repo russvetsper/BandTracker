@@ -63,6 +63,17 @@ namespace BandTracker.Objects
     Assert.Equal(findBand, newBand);
   }
 
+  [Fact]
+    public void Test6_UpdateBand()
+    {
+      Band newBand = new Band("Metallica");
+      newBand.Save();
+      newBand.Update("Metallica");
+      string result = newBand.GetName();
+
+      Assert.Equal("Metallica", result);
+    }
+
 
 
 
