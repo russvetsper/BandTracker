@@ -26,5 +26,18 @@ namespace BandTracker.Objects
       Assert.Equal("Metallica", result);
     }
 
+    [Fact]
+  public void Test2_SetName()
+  {
+    // arrange
+    Band newBand = new Band("Metallica");
+    newBand.SetName("Beatles");
+    // act
+    string result = newBand.GetName();
+
+    Assert.Equal("Beatles", result);
+  }
+
+
   }
 }

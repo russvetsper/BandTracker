@@ -49,5 +49,31 @@ namespace BandTracker.Objects
     return this.GetName().GetHashCode();
   }
 
+  public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO bands (name)OUTPUT INSERTED.id VALUES (@bandName);", conn );
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@bandName";
+      nameParameter.Value = this.GetName();
+      cmd.Parameters.Add(nameParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr !=null)
+      {
+        rdr.Close();
+      }
+      if (conn !=null)
+      {
+        conn.Close();
+      }
+    }
+
   }
 }
