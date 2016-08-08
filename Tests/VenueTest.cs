@@ -25,7 +25,7 @@ namespace BandTracker.Objects
    }
 
    [Fact]
-  public void Test3_SetVenueName()
+  public void Test2_SetVenueName()
   {
     // arrange
     Venue newVenue = new Venue("Maxwell");
@@ -35,6 +35,22 @@ namespace BandTracker.Objects
 
     Assert.Equal("Maxwell", result);
   }
+
+  [Fact]
+  public void Test3_SaveVenueName()
+  {
+    //Arrange
+  Venue newVenue = new Venue("Largo");
+  newVenue.Save();
+//ACt
+  List<Venue> allVenues = Venue.GetAll();
+  Console.WriteLine(allVenues.Count);
+//assert
+  Assert.Equal(newVenue, allVenues[0]);
+  }
+
+
+
 
 
   }
