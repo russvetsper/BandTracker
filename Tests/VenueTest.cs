@@ -24,6 +24,18 @@ namespace BandTracker.Objects
      Assert.Equal("Largo", result);
    }
 
+   [Fact]
+  public void Test3_SetVenueName()
+  {
+    // arrange
+    Venue newVenue = new Venue("Maxwell");
+    newVenue.SetName("Maxwell");
+    // act
+    string result = newVenue.GetVenueName();
+
+    Assert.Equal("Maxwell", result);
+  }
+
 
   }
 }
