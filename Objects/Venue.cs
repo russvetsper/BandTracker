@@ -103,37 +103,72 @@ namespace BandTracker.Objects
     }
 
     public static Venue Find(int id)
-        {
-          SqlConnection conn = DB.Connection();
-          conn.Open();
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
 
-          SqlCommand cmd = new SqlCommand("SELECT * FROM venues WHERE id = @venueId;", conn);
-          SqlParameter venueIdParameter = new SqlParameter();
-          venueIdParameter.ParameterName =  "@venueId";
-          venueIdParameter.Value = id.ToString();
-          cmd.Parameters.Add(venueIdParameter);
-          SqlDataReader rdr = cmd.ExecuteReader();
+      SqlCommand cmd = new SqlCommand("SELECT * FROM venues WHERE id = @venueId;", conn);
+      SqlParameter venueIdParameter = new SqlParameter();
+      venueIdParameter.ParameterName =  "@venueId";
+      venueIdParameter.Value = id.ToString();
+      cmd.Parameters.Add(venueIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
 
-          int findVenueId = 0;
-          string findVenueName = null;
-          while(rdr.Read())
-          {
-            findVenueId = rdr.GetInt32(0);
-            findVenueName = rdr.GetString(1);;
-          }
-          Venue findVenue = new Venue(findVenueName,findVenueId);
+      int findVenueId = 0;
+      string findVenueName = null;
+      while(rdr.Read())
+      {
+        findVenueId = rdr.GetInt32(0);
+        findVenueName = rdr.GetString(1);;
+      }
+      Venue findVenue = new Venue(findVenueName,findVenueId);
 
-          if (rdr != null)
-          {
-            rdr.Close();
-          }
-          if (conn != null)
-          {
-            conn.Close();
-          }
-          return findVenue;
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return findVenue;
 
-        }
+    }
+
+    public void Update(string Name)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE venues SET name =@venueName output inserted.name WHERE id =@venueId;", conn);
+      SqlParameter VenueNameParameter = new SqlParameter();
+      VenueNameParameter.ParameterName = "@venueName";
+      VenueNameParameter.Value = Name;
+
+      SqlParameter VenueIdParameter = new SqlParameter();
+      VenueIdParameter.ParameterName = "@venueId";
+      VenueIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(VenueNameParameter);
+      cmd.Parameters.Add(VenueIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._venueName = rdr.GetString(0);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+
+      if (rdr != null)
+      {
+        conn.Close();
+      }
+    }
 
 
 

@@ -60,7 +60,16 @@ namespace BandTracker.Objects
       Assert.Equal(findVenue, newVenue);
     }
 
+    [Fact]
+      public void Test5_UpdateVenue_Database()
+      {
+        Venue newVenue = new Venue("Largo");
+        newVenue.Save();
+        newVenue.Update("Tipitina");
+        string result = newVenue.GetVenueName();
 
+        Assert.Equal("Tipitina", result);
+      }
 
 
 
